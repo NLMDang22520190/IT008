@@ -396,7 +396,7 @@ namespace Problem1_1
         public void output()
         {
             System.Console.WriteLine("===================================");
-            System.Console.WriteLine("LIST SHAPE");
+            System.Console.WriteLine("LIST SHAPES");
             for (int i = 0; i < this.Number_Of_Shapes; i++)
             {
                 shapes[i].output();
