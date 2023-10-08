@@ -24,12 +24,12 @@ namespace Bai_1._3
             string maxLengthString = stringSequence.FindMax();
             string minLengthString = stringSequence.FindMin();
 
-            Console.WriteLine("Số lớn nhất trong dãy số nguyên là: " + maxInt);
-            Console.WriteLine("Số nhỏ nhất trong dãy số nguyên là: " + minInt);
-            Console.WriteLine("Số lớn nhất trong dãy số thực là: " + maxDouble);
-            Console.WriteLine("Số nhỏ nhất trong dãy số thực là: " + minDouble);
-            Console.WriteLine("Chuỗi dài nhất trong dãy chuỗi là: " + maxLengthString);
-            Console.WriteLine("Chuỗi ngắn nhất trong dãy chuỗi là: " + minLengthString);
+            Console.WriteLine("So lon nhat trong day so nguyen la: " + maxInt);
+            Console.WriteLine("So lon nho trong day so nguyen la: " + minInt);
+            Console.WriteLine("So lon nhat trong day so thuc la: " + maxDouble);
+            Console.WriteLine("So lon nho trong day so thuc la: " + minDouble);
+            Console.WriteLine("Chuoi dai nhat trong day chuoi la: " + maxLengthString);
+            Console.WriteLine("Chuoi ngan nhat trong day chuoi la: " + minLengthString);
         }
 
         static T[] ReadArray<T>(int lenght, string typeName) 
