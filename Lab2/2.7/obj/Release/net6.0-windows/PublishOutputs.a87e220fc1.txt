@@ -1,0 +1,5 @@
+C:\Users\Lenovo\OneDrive\Documents\UIT\LTTQ\TH\Shutdown\Shutdown.exe
+C:\Users\Lenovo\OneDrive\Documents\UIT\LTTQ\TH\Shutdown\Shutdown.dll
+C:\Users\Lenovo\OneDrive\Documents\UIT\LTTQ\TH\Shutdown\Shutdown.deps.json
+C:\Users\Lenovo\OneDrive\Documents\UIT\LTTQ\TH\Shutdown\Shutdown.runtimeconfig.json
+C:\Users\Lenovo\OneDrive\Documents\UIT\LTTQ\TH\Shutdown\Shutdown.pdb
