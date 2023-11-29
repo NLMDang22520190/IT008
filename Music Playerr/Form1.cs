@@ -1,18 +1,26 @@
-﻿namespace Music_Playerr
+﻿using System;
+using System.Collections.Generic;
+using System.Windows.Forms;
+using System.Media;
+using NAudio.Wave;
+
+namespace Music_Playerr
 {
     public partial class Form1 : Form
     {
         private List<Song> playlist = new List<Song>();
         private string storedMusicFolder = "./Music/";
+        private int currentSongIndex = 0;
+        private SoundPlayer player = new SoundPlayer();
+        private WaveOutEvent outputDevice;
+        private AudioFileReader audioFile;
         public Form1()
         {
             InitializeComponent();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            InitializePlaylist();
-        }
+        #region methods
+
         private void InitializePlaylist()
         {
             // Đảm bảo rằng danh sách đang trống trước khi thêm
@@ -32,6 +40,50 @@
                 listBoxPlaylist.Items.Add(fileNameWithoutExtension);
             }
         }
+
+        private void PlayCurrentSong()
+        {
+            if (playlist.Count > 0)
+            {
+                if (outputDevice != null)
+                {
+                    StopCurrentSong();
+                }
+
+                if (listBoxPlaylist.SelectedIndex >= 0)
+                {
+                    currentSongIndex = listBoxPlaylist.SelectedIndex;
+                }
+
+                Song currentSong = playlist[currentSongIndex];
+                audioFile = new AudioFileReader(currentSong.FilePath);
+                outputDevice = new WaveOutEvent();
+                outputDevice.Init(audioFile);
+                outputDevice.Play();
+                labelNowPlaying.Text = "Now Playing: " + currentSong.Title;
+            }
+        }
+
+
+        private void StopCurrentSong()
+        {
+            if (outputDevice != null)
+            {
+                outputDevice.Stop();
+                outputDevice.Dispose();
+                audioFile.Dispose();
+                labelNowPlaying.Text = "Now Playing: ";
+            }
+        }
+
+        #endregion
+
+        #region events
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            InitializePlaylist();
+        }
+
         private void buttonOpen_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -73,5 +125,38 @@
                 }
             }
         }
+
+        private void buttonPlay_Click(object sender, EventArgs e)
+        {
+            PlayCurrentSong();
+        }
+
+        private void buttonStop_Click(object sender, EventArgs e)
+        {
+            StopCurrentSong();
+        }
+
+        private void buttonNext_Click(object sender, EventArgs e)
+        {
+            currentSongIndex = (currentSongIndex + 1) % playlist.Count;
+            PlayCurrentSong();
+        }
+
+        private void buttonPrevious_Click(object sender, EventArgs e)
+        {
+            currentSongIndex = (currentSongIndex - 1 + playlist.Count) % playlist.Count;
+            PlayCurrentSong();
+        }
+
+        private void listBoxPlaylist_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            currentSongIndex = listBoxPlaylist.SelectedIndex;
+        }
+
+        #endregion
+
+
+
+
     }
 }
