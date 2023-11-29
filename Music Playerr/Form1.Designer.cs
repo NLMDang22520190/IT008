@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+<<<<<<< HEAD
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             musicListBox = new ListBox();
             progressBar1 = new ProgressBar();
@@ -117,10 +118,15 @@
             playButton.TabIndex = 0;
             playButton.UseVisualStyleBackColor = true;
             // 
+=======
+            SuspendLayout();
+            // 
+>>>>>>> f58d34be9df8dcd83a787d816845823060a80588
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+<<<<<<< HEAD
             ClientSize = new Size(362, 471);
             Controls.Add(controlPanel);
             Controls.Add(progressBar1);
@@ -128,6 +134,12 @@
             Name = "Form1";
             Text = "Form1";
             controlPanel.ResumeLayout(false);
+=======
+            ClientSize = new Size(800, 450);
+            Name = "Form1";
+            Text = "Form1";
+            Load += Form1_Load;
+>>>>>>> f58d34be9df8dcd83a787d816845823060a80588
             ResumeLayout(false);
         }
 
