@@ -14,6 +14,8 @@ namespace Music_Playerr
         private SoundPlayer player = new SoundPlayer();
         private WaveOutEvent outputDevice;
         private AudioFileReader audioFile;
+        private bool isPaused = false;
+        private long pausedPosition = 0;
         public Form1()
         {
             InitializeComponent();
@@ -56,10 +58,28 @@ namespace Music_Playerr
                 }
 
                 Song currentSong = playlist[currentSongIndex];
-                audioFile = new AudioFileReader(currentSong.FilePath);
-                outputDevice = new WaveOutEvent();
-                outputDevice.Init(audioFile);
-                outputDevice.Play();
+
+                // Nếu đã dừng trước đó, thì tiếp tục từ vị trí đã dừng
+                if (isPaused)
+                {
+                    audioFile = new AudioFileReader(currentSong.FilePath);
+                    outputDevice = new WaveOutEvent();
+                    outputDevice.Init(audioFile);
+                    outputDevice.Play();
+                    outputDevice.Pause();  // Dừng ngay lập tức để thiết lập vị trí
+                    audioFile.Position = pausedPosition;  // Thiết lập vị trí
+                    outputDevice.Play();
+                    isPaused = false;
+                }
+                else
+                {
+                    // Nếu chưa dừng, tiếp tục phát bình thường
+                    audioFile = new AudioFileReader(currentSong.FilePath);
+                    outputDevice = new WaveOutEvent();
+                    outputDevice.Init(audioFile);
+                    outputDevice.Play();
+                }
+
                 labelNowPlaying.Text = "Now Playing: " + currentSong.Title;
             }
         }
