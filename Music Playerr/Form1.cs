@@ -1,9 +1,8 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Media;
 using NAudio.Wave;
-
 namespace Music_Playerr
 {
     public partial class Form1 : Form
@@ -16,9 +15,11 @@ namespace Music_Playerr
         private AudioFileReader audioFile;
         private bool isPaused = false;
         private long pausedPosition = 0;
+        public int Flag = 0; // biến này để xem liệu có đang dừng hay không.
         public Form1()
         {
             InitializeComponent();
+            set_background_for_play_button();
             timer1.Interval = 1000; // Cập nhật mỗi giây
             timer1.Start();
         }
@@ -57,6 +58,13 @@ namespace Music_Playerr
                 playlist.Add(new Song(fileNameWithoutExtension, filePath));
                 listBoxPlaylist.Items.Add(fileNameWithoutExtension);
             }
+        }
+        private void set_background_for_play_button()
+        {
+            string imagePath = Path.Combine(Application.StartupPath, "Image", "play-button-svgrepo-com.png");
+            playButton.BackgroundImage = Image.FromFile(imagePath);
+            playButton.BackgroundImageLayout = ImageLayout.Stretch;
+
         }
 
         private void PlayCurrentSong()
@@ -184,11 +192,32 @@ namespace Music_Playerr
 
         private void buttonPlay_Click(object sender, EventArgs e)
         {
+            if (Flag % 2 == 0)
+            {
+                
+                string imagePath = Path.Combine(Application.StartupPath, "Image", "pause.png");
+                playButton.BackgroundImage = Image.FromFile(imagePath);
+                playButton.BackgroundImageLayout = ImageLayout.Stretch;
+                Flag++;
+                currentSongIndex = (currentSongIndex - 1 + playlist.Count) % playlist.Count;
+                PlayCurrentSong();
+                return;
+            }
+            else
+            {
+                string imagePath = Path.Combine(Application.StartupPath, "Image", "Play_pause.png");
+                playButton.BackgroundImage = Image.FromFile(imagePath);
+                playButton.BackgroundImageLayout = ImageLayout.Stretch;
+                Flag++;
+                StopCurrentSong();
+                return;
+            }
             PlayCurrentSong();
         }
 
         private void buttonStop_Click(object sender, EventArgs e)
         {
+
             StopCurrentSong();
         }
 
@@ -200,6 +229,7 @@ namespace Music_Playerr
 
         private void buttonPrevious_Click(object sender, EventArgs e)
         {
+
             currentSongIndex = (currentSongIndex - 1 + playlist.Count) % playlist.Count;
             PlayCurrentSong();
         }
