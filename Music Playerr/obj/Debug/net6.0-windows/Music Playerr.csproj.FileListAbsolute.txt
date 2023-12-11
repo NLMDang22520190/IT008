@@ -1,0 +1,26 @@
+C:\Users\Lenovo\source\repos\NLMDang22520190\IT008\Music Playerr\obj\Debug\net6.0-windows\Music Playerr.csproj.AssemblyReference.cache
+C:\Users\Lenovo\source\repos\NLMDang22520190\IT008\Music Playerr\obj\Debug\net6.0-windows\Music_Playerr.Form1.resources
+C:\Users\Lenovo\source\repos\NLMDang22520190\IT008\Music Playerr\obj\Debug\net6.0-windows\Music_Playerr.Properties.Resources.resources
+C:\Users\Lenovo\source\repos\NLMDang22520190\IT008\Music Playerr\obj\Debug\net6.0-windows\Music Playerr.csproj.GenerateResource.cache
+C:\Users\Lenovo\source\repos\NLMDang22520190\IT008\Music Playerr\obj\Debug\net6.0-windows\Music Playerr.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Lenovo\source\repos\NLMDang22520190\IT008\Music Playerr\obj\Debug\net6.0-windows\Music Playerr.AssemblyInfoInputs.cache
+C:\Users\Lenovo\source\repos\NLMDang22520190\IT008\Music Playerr\obj\Debug\net6.0-windows\Music Playerr.AssemblyInfo.cs
+C:\Users\Lenovo\source\repos\NLMDang22520190\IT008\Music Playerr\obj\Debug\net6.0-windows\Music Playerr.csproj.CoreCompileInputs.cache
+C:\Users\Lenovo\source\repos\NLMDang22520190\IT008\Music Playerr\bin\Debug\net6.0-windows\Music Playerr.exe
+C:\Users\Lenovo\source\repos\NLMDang22520190\IT008\Music Playerr\bin\Debug\net6.0-windows\Music Playerr.deps.json
+C:\Users\Lenovo\source\repos\NLMDang22520190\IT008\Music Playerr\bin\Debug\net6.0-windows\Music Playerr.runtimeconfig.json
+C:\Users\Lenovo\source\repos\NLMDang22520190\IT008\Music Playerr\bin\Debug\net6.0-windows\Music Playerr.dll
+C:\Users\Lenovo\source\repos\NLMDang22520190\IT008\Music Playerr\bin\Debug\net6.0-windows\Music Playerr.pdb
+C:\Users\Lenovo\source\repos\NLMDang22520190\IT008\Music Playerr\bin\Debug\net6.0-windows\NAudio.dll
+C:\Users\Lenovo\source\repos\NLMDang22520190\IT008\Music Playerr\bin\Debug\net6.0-windows\NAudio.Asio.dll
+C:\Users\Lenovo\source\repos\NLMDang22520190\IT008\Music Playerr\bin\Debug\net6.0-windows\NAudio.Core.dll
+C:\Users\Lenovo\source\repos\NLMDang22520190\IT008\Music Playerr\bin\Debug\net6.0-windows\NAudio.Midi.dll
+C:\Users\Lenovo\source\repos\NLMDang22520190\IT008\Music Playerr\bin\Debug\net6.0-windows\NAudio.Wasapi.dll
+C:\Users\Lenovo\source\repos\NLMDang22520190\IT008\Music Playerr\bin\Debug\net6.0-windows\NAudio.WinForms.dll
+C:\Users\Lenovo\source\repos\NLMDang22520190\IT008\Music Playerr\bin\Debug\net6.0-windows\NAudio.WinMM.dll
+C:\Users\Lenovo\source\repos\NLMDang22520190\IT008\Music Playerr\obj\Debug\net6.0-windows\Music Playerr.csproj.CopyComplete
+C:\Users\Lenovo\source\repos\NLMDang22520190\IT008\Music Playerr\obj\Debug\net6.0-windows\Music Playerr.dll
+C:\Users\Lenovo\source\repos\NLMDang22520190\IT008\Music Playerr\obj\Debug\net6.0-windows\refint\Music Playerr.dll
+C:\Users\Lenovo\source\repos\NLMDang22520190\IT008\Music Playerr\obj\Debug\net6.0-windows\Music Playerr.pdb
+C:\Users\Lenovo\source\repos\NLMDang22520190\IT008\Music Playerr\obj\Debug\net6.0-windows\Music Playerr.genruntimeconfig.cache
+C:\Users\Lenovo\source\repos\NLMDang22520190\IT008\Music Playerr\obj\Debug\net6.0-windows\ref\Music Playerr.dll

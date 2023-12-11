@@ -28,35 +28,38 @@
         /// </summary>
         private void InitializeComponent()
         {
-<<<<<<< HEAD
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            musicListBox = new ListBox();
-            progressBar1 = new ProgressBar();
+            listBoxPlaylist = new ListBox();
+            progressBarSong = new ProgressBar();
             controlPanel = new Panel();
             addButton = new Button();
             nextButton = new Button();
             previousButton = new Button();
             playButton = new Button();
+            labelNowPlaying = new Label();
+            timer1 = new System.Windows.Forms.Timer(components);
             controlPanel.SuspendLayout();
             SuspendLayout();
             // 
-            // musicListBox
+            // listBoxPlaylist
             // 
-            musicListBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            musicListBox.BorderStyle = BorderStyle.FixedSingle;
-            musicListBox.FormattingEnabled = true;
-            musicListBox.ItemHeight = 20;
-            musicListBox.Location = new Point(12, 12);
-            musicListBox.Name = "musicListBox";
-            musicListBox.Size = new Size(338, 242);
-            musicListBox.TabIndex = 0;
+            listBoxPlaylist.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            listBoxPlaylist.BorderStyle = BorderStyle.FixedSingle;
+            listBoxPlaylist.FormattingEnabled = true;
+            listBoxPlaylist.ItemHeight = 25;
+            listBoxPlaylist.Location = new Point(12, 12);
+            listBoxPlaylist.Name = "listBoxPlaylist";
+            listBoxPlaylist.Size = new Size(347, 227);
+            listBoxPlaylist.TabIndex = 0;
+            listBoxPlaylist.SelectedIndexChanged += listBoxPlaylist_SelectedIndexChanged;
             // 
-            // progressBar1
+            // progressBarSong
             // 
-            progressBar1.Location = new Point(12, 262);
-            progressBar1.Name = "progressBar1";
-            progressBar1.Size = new Size(337, 14);
-            progressBar1.TabIndex = 1;
+            progressBarSong.Location = new Point(12, 282);
+            progressBarSong.Name = "progressBarSong";
+            progressBarSong.Size = new Size(347, 14);
+            progressBarSong.TabIndex = 1;
             // 
             // controlPanel
             // 
@@ -64,9 +67,9 @@
             controlPanel.Controls.Add(nextButton);
             controlPanel.Controls.Add(previousButton);
             controlPanel.Controls.Add(playButton);
-            controlPanel.Location = new Point(12, 282);
+            controlPanel.Location = new Point(12, 302);
             controlPanel.Name = "controlPanel";
-            controlPanel.Size = new Size(337, 90);
+            controlPanel.Size = new Size(347, 90);
             controlPanel.TabIndex = 2;
             // 
             // addButton
@@ -75,11 +78,12 @@
             addButton.BackgroundImageLayout = ImageLayout.Stretch;
             addButton.FlatAppearance.BorderSize = 0;
             addButton.FlatStyle = FlatStyle.Flat;
-            addButton.Location = new Point(304, 3);
+            addButton.Location = new Point(314, 3);
             addButton.Name = "addButton";
             addButton.Size = new Size(30, 30);
             addButton.TabIndex = 3;
             addButton.UseVisualStyleBackColor = true;
+            addButton.Click += buttonOpen_Click;
             // 
             // nextButton
             // 
@@ -105,6 +109,7 @@
             previousButton.Size = new Size(60, 60);
             previousButton.TabIndex = 1;
             previousButton.UseVisualStyleBackColor = true;
+            previousButton.Click += buttonPrevious_Click;
             // 
             // playButton
             // 
@@ -117,41 +122,48 @@
             playButton.Size = new Size(60, 60);
             playButton.TabIndex = 0;
             playButton.UseVisualStyleBackColor = true;
+            playButton.Click += buttonPlay_Click;
             // 
-=======
-            SuspendLayout();
+            // labelNowPlaying
             // 
->>>>>>> f58d34be9df8dcd83a787d816845823060a80588
+            labelNowPlaying.Location = new Point(12, 248);
+            labelNowPlaying.Name = "labelNowPlaying";
+            labelNowPlaying.Size = new Size(347, 25);
+            labelNowPlaying.TabIndex = 3;
+            labelNowPlaying.Text = "Select song to play:";
+            // 
+            // timer1
+            // 
+            timer1.Enabled = true;
+            timer1.Tick += timer1_Tick;
+            // 
             // Form1
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-<<<<<<< HEAD
-            ClientSize = new Size(362, 471);
+            ClientSize = new Size(371, 450);
+            Controls.Add(labelNowPlaying);
             Controls.Add(controlPanel);
-            Controls.Add(progressBar1);
-            Controls.Add(musicListBox);
-            Name = "Form1";
-            Text = "Form1";
-            controlPanel.ResumeLayout(false);
-=======
-            ClientSize = new Size(800, 450);
+            Controls.Add(progressBarSong);
+            Controls.Add(listBoxPlaylist);
             Name = "Form1";
             Text = "Form1";
             Load += Form1_Load;
->>>>>>> f58d34be9df8dcd83a787d816845823060a80588
+            controlPanel.ResumeLayout(false);
             ResumeLayout(false);
         }
 
         #endregion
 
-        private ListBox musicListBox;
-        private ProgressBar progressBar1;
+        private ListBox listBoxPlaylist;
+        private ProgressBar progressBarSong;
         private Panel controlPanel;
         private Button button3;
         private Button playButton;
         private Button nextButton;
         private Button previousButton;
         private Button addButton;
+        private Label labelNowPlaying;
+        private System.Windows.Forms.Timer timer1;
     }
 }

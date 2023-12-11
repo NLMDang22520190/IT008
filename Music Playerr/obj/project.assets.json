@@ -487,19 +487,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Admin\\.nuget\\packages\\": {}
+    "C:\\Users\\Lenovo\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Admin\\Source\\Repos\\NLMDang22520190\\IT008\\Music Playerr\\Music Playerr.csproj",
+      "projectUniqueName": "C:\\Users\\Lenovo\\Source\\Repos\\NLMDang22520190\\IT008\\Music Playerr\\Music Playerr.csproj",
       "projectName": "Music Playerr",
-      "projectPath": "C:\\Users\\Admin\\Source\\Repos\\NLMDang22520190\\IT008\\Music Playerr\\Music Playerr.csproj",
-      "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Admin\\Source\\Repos\\NLMDang22520190\\IT008\\Music Playerr\\obj\\",
+      "projectPath": "C:\\Users\\Lenovo\\Source\\Repos\\NLMDang22520190\\IT008\\Music Playerr\\Music Playerr.csproj",
+      "packagesPath": "C:\\Users\\Lenovo\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Lenovo\\Source\\Repos\\NLMDang22520190\\IT008\\Music Playerr\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Lenovo\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -549,11 +549,7 @@
             "privateAssets": "none"
           }
         },
-<<<<<<< HEAD
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
-=======
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.402\\RuntimeIdentifierGraph.json"
->>>>>>> f58d34be9df8dcd83a787d816845823060a80588
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.403\\RuntimeIdentifierGraph.json"
       }
     }
   }

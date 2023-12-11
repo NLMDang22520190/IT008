@@ -19,9 +19,10 @@ namespace Music_Playerr
         public Form1()
         {
             InitializeComponent();
+            timer1.Interval = 1000; // Cập nhật mỗi giây
+            timer1.Start();
         }
 
-<<<<<<< HEAD
         private void button2_Click(object sender, EventArgs e)
         {
 
@@ -31,7 +32,6 @@ namespace Music_Playerr
         {
 
         }
-=======
         #region methods
 
         private void InitializePlaylist()
@@ -39,6 +39,11 @@ namespace Music_Playerr
             // Đảm bảo rằng danh sách đang trống trước khi thêm
             playlist.Clear();
             listBoxPlaylist.Items.Clear();
+
+            if (!Directory.Exists(storedMusicFolder))
+            {
+                Directory.CreateDirectory(storedMusicFolder);
+            }
 
             // Đọc tất cả các file âm nhạc trong thư mục
             string[] musicFiles = Directory.GetFiles(storedMusicFolder, "*.mp3");
@@ -92,6 +97,7 @@ namespace Music_Playerr
                 }
 
                 labelNowPlaying.Text = "Now Playing: " + currentSong.Title;
+                timer1.Start();
             }
         }
 
@@ -105,7 +111,26 @@ namespace Music_Playerr
                 audioFile.Dispose();
                 labelNowPlaying.Text = "Now Playing: ";
             }
+            timer1.Stop();
         }
+        private void UpdateProgressBar()
+        {
+            if (audioFile != null && outputDevice != null)
+            {
+                int totalSeconds = (int)audioFile.TotalTime.TotalSeconds;
+                int currentPosition = (int)audioFile.CurrentTime.TotalSeconds;
+
+                // Đảm bảo không chia cho 0
+                if (totalSeconds > 0)
+                {
+                    // Tính toán tỉ lệ và cập nhật ProgressBar
+                    int progressValue = (currentPosition * progressBarSong.Maximum) / totalSeconds;
+                    progressBarSong.Value = progressValue;
+                }
+            }
+        }
+
+
 
         #endregion
 
@@ -184,11 +209,16 @@ namespace Music_Playerr
             currentSongIndex = listBoxPlaylist.SelectedIndex;
         }
 
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            UpdateProgressBar();
+        }
+
         #endregion
 
 
 
 
->>>>>>> f58d34be9df8dcd83a787d816845823060a80588
+
     }
 }
