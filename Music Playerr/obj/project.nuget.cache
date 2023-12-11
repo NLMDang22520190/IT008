@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "F6xcgptN/ySaFGoWBVwkee6fKwTPOtcLLPNIFndaG/f1NsdWhO7ODE2FOyOCGa8vkPI/1zZgnoQXI7KH6F0jkg==",
+  "dgSpecHash": "v0xxzjwl5Tak5HUI3BTTooA79vaapC0Qf4hMvJ/9YYxdlPxrOyMb8CiMxJQtO4A3+GtPJr3nxIiX/0l9Qz6AZA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Lenovo\\source\\repos\\NLMDang22520190\\IT008\\Music Playerr\\Music Playerr.csproj",
+  "projectFilePath": "C:\\Users\\Lenovo\\Source\\Repos\\NLMDang22520190\\IT008\\Music Playerr\\Music Playerr.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.0\\microsoft.netcore.platforms.3.1.0.nupkg.sha512",
     "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.win32.registry\\4.7.0\\microsoft.win32.registry.4.7.0.nupkg.sha512",
