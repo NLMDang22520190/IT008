@@ -1,254 +1,318 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Windows.Forms;
 using System.Media;
 using NAudio.Wave;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using System.Diagnostics;
+
 namespace Music_Playerr
 {
     public partial class Form1 : Form
     {
+        //#region Properties
+        //// Danh sách bài hát
+        //private List<Song> playlist = new List<Song>();
+
+        //// Thư mục lưu trữ âm nhạc
+        //private string storedMusicFolder = "./Music/";
+
+        //// Vị trí hiện tại của bài hát trong danh sách
+        //private int currentSongIndex = 0;
+
+        //// Vị trí hiện tại đang được phát
+        //private int currentSongPlayingIndex = -1;
+
+        //// Đối tượng phát âm thanh
+        //private SoundPlayer player = new SoundPlayer();
+
+        //// Đối tượng phát âm thanh sử dụng thư viện NAudio
+        //private WaveOutEvent outputDevice;
+
+        //// Đối tượng đọc file âm thanh
+        //private AudioFileReader audioFile;
+
+        //// Biến kiểm tra xem âm nhạc đang được tạm dừng hay không
+        //private bool isPaused = true;
+
+        //// Biến kiểm tra xem âm nhạc đang được phát hay không
+        //private bool isPlaying = false;
+
+        //// Vị trí tạm dừng khi pause
+        //private long pausedPosition = 0;
+
+        //#endregion
+
         private List<Song> playlist = new List<Song>();
-        private string storedMusicFolder = "./Music/";
-        private int currentSongIndex = 0;
-        private SoundPlayer player = new SoundPlayer();
-        private WaveOutEvent outputDevice;
-        private AudioFileReader audioFile;
-        private bool isPaused = false;
-        private long pausedPosition = 0;
-        public int Flag = 0; // biến này để xem liệu có đang dừng hay không.
+        private IWavePlayer waveOutDevice;
+        private AudioFileReader audioFileReader;
+        private int currentSongIndex = -1;
+        private bool changingTrack = false;
+        private bool isPlaying = false;
+
+        // Hàm khởi tạo của Form
         public Form1()
         {
             InitializeComponent();
-            set_background_for_play_button();
-            timer1.Interval = 1000; // Cập nhật mỗi giây
+            //set_background_for_play_button();
+            timer1.Interval = 1000; // Cập nhật mỗi 10ms
             timer1.Start();
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        
+
+        private void btnPlayPause_Click(object sender, EventArgs e)
         {
+            if (playlist.Count == 0)
+                return;
 
-        }
-
-        private void nextButton_Click(object sender, EventArgs e)
-        {
-
-        }
-        #region methods
-
-        private void InitializePlaylist()
-        {
-            // Đảm bảo rằng danh sách đang trống trước khi thêm
-            playlist.Clear();
-            listBoxPlaylist.Items.Clear();
-
-            if (!Directory.Exists(storedMusicFolder))
+            if (currentSongIndex == -1)
             {
-                Directory.CreateDirectory(storedMusicFolder);
+                currentSongIndex = 0;
+                listBoxPlaylist.SelectedIndex = 0;
             }
 
-            // Đọc tất cả các file âm nhạc trong thư mục
-            string[] musicFiles = Directory.GetFiles(storedMusicFolder, "*.mp3");
 
-            foreach (var filePath in musicFiles)
+            if (waveOutDevice == null)
             {
-                // Lấy tên tệp tin không có phần mở rộng
-                string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(filePath);
-
-                // Thêm bài hát vào danh sách và ListBox
-                playlist.Add(new Song(fileNameWithoutExtension, filePath));
-                listBoxPlaylist.Items.Add(fileNameWithoutExtension);
+                Play(playlist[currentSongIndex].FilePath);
+            }
+            else if (waveOutDevice.PlaybackState == PlaybackState.Playing)
+            {
+                Pause();
+            }
+            else if (waveOutDevice.PlaybackState == PlaybackState.Paused)
+            {
+                Continue();
             }
         }
+
+        private void btnNext_Click(object sender, EventArgs e)
+        {
+            if (playlist.Count == 0)
+                return;
+
+            Stop();
+
+            currentSongIndex = (currentSongIndex + 1) % playlist.Count;
+            Play(playlist[currentSongIndex].FilePath);
+
+            changingTrack = true;
+        }
+        private void btnPrevious_Click(object sender, EventArgs e)
+        {
+            if (playlist.Count == 0)
+                return;
+
+            Stop();
+
+            currentSongIndex = (currentSongIndex - 1 + playlist.Count) % playlist.Count;
+            Play(playlist[currentSongIndex].FilePath);
+
+            changingTrack = true;
+        }
+
+        private void btnOpen_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "MP3 Files|*.mp3";
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                string filePath = openFileDialog.FileName;
+                string destinationPath = Path.Combine(Application.StartupPath, "Music", Path.GetFileName(filePath));
+                File.Copy(filePath, destinationPath, true);
+
+                Song newSong = new Song(destinationPath, Path.GetFileNameWithoutExtension(filePath));
+                playlist.Add(newSong);
+                listBoxPlaylist.Items.Add(newSong.Title);
+            }
+        }
+
+        private void Play(string filePath)
+        {
+            set_background_for_pause_button();
+            waveOutDevice = new WaveOut();
+            audioFileReader = new AudioFileReader(filePath);
+            waveOutDevice.Init(audioFileReader);
+            waveOutDevice.Play();
+
+            timer1.Start();
+
+            // Cập nhật chiều dài của ProgressBar
+            progressBarSong.Maximum = (int)audioFileReader.TotalTime.TotalSeconds;
+
+            // Cập nhật Label
+            labelNowPlaying.Text = "Current song playing: " + Path.GetFileNameWithoutExtension(filePath);
+
+            isPlaying = true;
+
+        }
+
+        private void Pause()
+        {
+            set_background_for_playpause_button();
+            waveOutDevice.Pause();
+        }
+
+        private void Continue()
+        {
+            set_background_for_pause_button();
+            waveOutDevice.Play();
+            timer1.Start();
+        }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (waveOutDevice != null)
+            {
+                waveOutDevice.Stop();
+                waveOutDevice.Dispose();
+            }
+        }
+
+        private void timer_Tick(object sender, EventArgs e)
+        {
+            if (audioFileReader != null)
+            {
+                //progressBarSong.Value = (int)audioFileReader.CurrentTime.TotalSeconds;
+
+                if (audioFileReader.CurrentTime == audioFileReader.TotalTime)
+                {
+                    timer1.Stop();
+                    progressBarSong.Value = 0;
+                }
+            }
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            // Đọc tất cả các file nhạc trong thư mục Music và thêm vào danh sách
+            string musicFolderPath = Path.Combine(Application.StartupPath, "Music");
+
+            if (Directory.Exists(musicFolderPath))
+            {
+                string[] musicFiles = Directory.GetFiles(musicFolderPath, "*.mp3");
+
+                foreach (string file in musicFiles)
+                {
+                    Song song = new Song(file, Path.GetFileNameWithoutExtension(file));
+                    playlist.Add(song);
+                    listBoxPlaylist.Items.Add(song.Title);
+                }
+            }
+
+            if (playlist.Count > 0)
+            {
+                listBoxPlaylist.SelectedIndex = 0;
+                currentSongIndex = 0;
+            }
+        }
+
+        private void listBoxMusic_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (listBoxPlaylist.SelectedIndex != -1)
+            {
+                Stop();
+                currentSongIndex = listBoxPlaylist.SelectedIndex;
+                Play(playlist[currentSongIndex].FilePath);
+                changingTrack = true;
+            }
+        }
+
+        private void Stop()
+        {
+            set_background_for_play_button();
+            if (audioFileReader != null)
+            {
+                audioFileReader.Dispose();
+                audioFileReader = null;
+            }
+
+            if (waveOutDevice != null)
+            {
+                waveOutDevice.Stop();
+                waveOutDevice.Dispose();
+                waveOutDevice = null;
+            }
+        }
+
+        // Hàm thiết lập hình nền cho nút play
         private void set_background_for_play_button()
         {
             string imagePath = Path.Combine(Application.StartupPath, "Image", "play-button-svgrepo-com.png");
             playButton.BackgroundImage = Image.FromFile(imagePath);
             playButton.BackgroundImageLayout = ImageLayout.Stretch;
-
         }
 
-        private void PlayCurrentSong()
+        // Hàm thiết lập hình nền cho nút pause
+        private void set_background_for_pause_button()
         {
-            if (playlist.Count > 0)
+            string imagePath = Path.Combine(Application.StartupPath, "Image", "pause.png");
+            playButton.BackgroundImage = Image.FromFile(imagePath);
+            playButton.BackgroundImageLayout = ImageLayout.Stretch;
+        }
+
+        // Hàm thiết lập hình nền cho nút play/pause
+        private void set_background_for_playpause_button()
+        {
+            string imagePath = Path.Combine(Application.StartupPath, "Image", "Play_pause.png");
+            playButton.BackgroundImage = Image.FromFile(imagePath);
+            playButton.BackgroundImageLayout = ImageLayout.Stretch;
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            if (listBoxPlaylist.SelectedIndex != -1 && listBoxPlaylist.Items.Count > 0)
             {
-                if (outputDevice != null)
+                Stop();
+
+                int selectedIndex = listBoxPlaylist.SelectedIndex;
+
+                // Kiểm tra xem selected index có hợp lệ không
+                if (selectedIndex >= 0 && selectedIndex < playlist.Count)
                 {
-                    StopCurrentSong();
-                }
+                    string selectedFilePath = playlist[selectedIndex].FilePath;
+                    string selectedFileName = Path.GetFileName(selectedFilePath);
 
-                if (listBoxPlaylist.SelectedIndex >= 0)
-                {
-                    currentSongIndex = listBoxPlaylist.SelectedIndex;
-                }
+                    // Kiểm tra xem bài hát đang chơi có phải là bài hát đang được xóa không
+                    bool isCurrentSongDeleted = currentSongIndex == selectedIndex;
 
-                Song currentSong = playlist[currentSongIndex];
+                    // Hiển thị MessageBox hỏi người dùng có muốn xóa không
+                    DialogResult result = MessageBox.Show("Do you want to delete the selected song?\nThis action will remove it from the playlist.", "Delete Song", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
-                // Nếu đã dừng trước đó, thì tiếp tục từ vị trí đã dừng
-                if (isPaused)
-                {
-                    audioFile = new AudioFileReader(currentSong.FilePath);
-                    outputDevice = new WaveOutEvent();
-                    outputDevice.Init(audioFile);
-                    outputDevice.Play();
-                    outputDevice.Pause();  // Dừng ngay lập tức để thiết lập vị trí
-                    audioFile.Position = pausedPosition;  // Thiết lập vị trí
-                    outputDevice.Play();
-                    isPaused = false;
-                }
-                else
-                {
-                    // Nếu chưa dừng, tiếp tục phát bình thường
-                    audioFile = new AudioFileReader(currentSong.FilePath);
-                    outputDevice = new WaveOutEvent();
-                    outputDevice.Init(audioFile);
-                    outputDevice.Play();
-                }
-
-                labelNowPlaying.Text = "Now Playing: " + currentSong.Title;
-                timer1.Start();
-            }
-        }
-
-
-        private void StopCurrentSong()
-        {
-            if (outputDevice != null)
-            {
-                outputDevice.Stop();
-                outputDevice.Dispose();
-                audioFile.Dispose();
-                labelNowPlaying.Text = "Now Playing: ";
-            }
-            timer1.Stop();
-        }
-        private void UpdateProgressBar()
-        {
-            if (audioFile != null && outputDevice != null)
-            {
-                int totalSeconds = (int)audioFile.TotalTime.TotalSeconds;
-                int currentPosition = (int)audioFile.CurrentTime.TotalSeconds;
-
-                // Đảm bảo không chia cho 0
-                if (totalSeconds > 0)
-                {
-                    // Tính toán tỉ lệ và cập nhật ProgressBar
-                    int progressValue = (currentPosition * progressBarSong.Maximum) / totalSeconds;
-                    progressBarSong.Value = progressValue;
-                }
-            }
-        }
-
-
-
-        #endregion
-
-        #region events
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            InitializePlaylist();
-        }
-
-        private void buttonOpen_Click(object sender, EventArgs e)
-        {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "Audio Files|*.mp3;*.wav|All Files|*.*";
-            openFileDialog.Title = "Select a Music File";
-
-            if (openFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                string selectedFilePath = openFileDialog.FileName;
-                string selectedFileName = Path.GetFileNameWithoutExtension(selectedFilePath);
-
-                try
-                {
-                    // Thư mục của ứng dụng
-                    string appDirectory = Path.GetDirectoryName(Application.ExecutablePath);
-
-                    // Thư mục để lưu trữ nhạc
-                    string musicFolder = Path.Combine(appDirectory, "Music");
-
-                    // Tạo thư mục nếu chưa tồn tại
-                    if (!Directory.Exists(musicFolder))
+                    if (result == DialogResult.Yes)
                     {
-                        Directory.CreateDirectory(musicFolder);
+                        // Xóa bài nhạc khỏi danh sách
+                        playlist.RemoveAt(selectedIndex);
+                        listBoxPlaylist.Items.RemoveAt(selectedIndex);
+
+                        // Xóa file nhạc từ thư mục Music (nếu được chọn)
+                        result = MessageBox.Show("Do you want to delete the song file from the 'Music' folder as well?", "Delete File", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                        if (result == DialogResult.Yes)
+                        {
+                            try
+                            {
+                                File.Delete(selectedFilePath);
+                            }
+                            catch (IOException ex)
+                            {
+                                MessageBox.Show("Error deleting file: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                        }
+
+                        // Nếu bài hát đang chơi bị xóa, chuyển sang bài hát tiếp theo
+                        if (isCurrentSongDeleted && currentSongIndex < playlist.Count)
+                        {
+                            Play(playlist[currentSongIndex].FilePath);
+                        }
                     }
-
-                    // Đường dẫn đến file nhạc trong thư mục của ứng dụng
-                    string destinationFilePath = Path.Combine(musicFolder, selectedFileName + Path.GetExtension(selectedFilePath));
-
-                    // Copy file nhạc vào thư mục của ứng dụng
-                    File.Copy(selectedFilePath, destinationFilePath, true);
-
-                    // Thêm bài hát mới vào danh sách
-                    playlist.Add(new Song(selectedFileName, destinationFilePath));
-                    listBoxPlaylist.Items.Add(selectedFileName);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Error: {ex.Message}");
                 }
             }
         }
-
-        private void buttonPlay_Click(object sender, EventArgs e)
-        {
-            if (Flag % 2 == 0)
-            {
-                
-                string imagePath = Path.Combine(Application.StartupPath, "Image", "pause.png");
-                playButton.BackgroundImage = Image.FromFile(imagePath);
-                playButton.BackgroundImageLayout = ImageLayout.Stretch;
-                Flag++;
-                currentSongIndex = (currentSongIndex - 1 + playlist.Count) % playlist.Count;
-                PlayCurrentSong();
-                return;
-            }
-            else
-            {
-                string imagePath = Path.Combine(Application.StartupPath, "Image", "Play_pause.png");
-                playButton.BackgroundImage = Image.FromFile(imagePath);
-                playButton.BackgroundImageLayout = ImageLayout.Stretch;
-                Flag++;
-                StopCurrentSong();
-                return;
-            }
-            PlayCurrentSong();
-        }
-
-        private void buttonStop_Click(object sender, EventArgs e)
-        {
-
-            StopCurrentSong();
-        }
-
-        private void buttonNext_Click(object sender, EventArgs e)
-        {
-            currentSongIndex = (currentSongIndex + 1) % playlist.Count;
-            PlayCurrentSong();
-        }
-
-        private void buttonPrevious_Click(object sender, EventArgs e)
-        {
-
-            currentSongIndex = (currentSongIndex - 1 + playlist.Count) % playlist.Count;
-            PlayCurrentSong();
-        }
-
-        private void listBoxPlaylist_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            currentSongIndex = listBoxPlaylist.SelectedIndex;
-        }
-
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-            UpdateProgressBar();
-        }
-
-        #endregion
-
-
-
-
 
     }
 }
+

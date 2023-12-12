@@ -33,6 +33,7 @@
             listBoxPlaylist = new ListBox();
             progressBarSong = new ProgressBar();
             controlPanel = new Panel();
+            deleteBtn = new Button();
             addButton = new Button();
             nextButton = new Button();
             previousButton = new Button();
@@ -52,7 +53,7 @@
             listBoxPlaylist.Name = "listBoxPlaylist";
             listBoxPlaylist.Size = new Size(347, 227);
             listBoxPlaylist.TabIndex = 0;
-            listBoxPlaylist.SelectedIndexChanged += listBoxPlaylist_SelectedIndexChanged;
+            listBoxPlaylist.SelectedIndexChanged += listBoxMusic_SelectedIndexChanged;
             // 
             // progressBarSong
             // 
@@ -63,6 +64,7 @@
             // 
             // controlPanel
             // 
+            controlPanel.Controls.Add(deleteBtn);
             controlPanel.Controls.Add(addButton);
             controlPanel.Controls.Add(nextButton);
             controlPanel.Controls.Add(previousButton);
@@ -71,6 +73,19 @@
             controlPanel.Name = "controlPanel";
             controlPanel.Size = new Size(347, 90);
             controlPanel.TabIndex = 2;
+            // 
+            // deleteBtn
+            // 
+            deleteBtn.BackgroundImage = (Image)resources.GetObject("deleteBtn.BackgroundImage");
+            deleteBtn.BackgroundImageLayout = ImageLayout.Stretch;
+            deleteBtn.FlatAppearance.BorderSize = 0;
+            deleteBtn.FlatStyle = FlatStyle.Flat;
+            deleteBtn.Location = new Point(3, 3);
+            deleteBtn.Name = "deleteBtn";
+            deleteBtn.Size = new Size(30, 30);
+            deleteBtn.TabIndex = 4;
+            deleteBtn.UseVisualStyleBackColor = true;
+            deleteBtn.Click += btnDelete_Click;
             // 
             // addButton
             // 
@@ -83,7 +98,7 @@
             addButton.Size = new Size(30, 30);
             addButton.TabIndex = 3;
             addButton.UseVisualStyleBackColor = true;
-            addButton.Click += buttonOpen_Click;
+            addButton.Click += btnOpen_Click;
             // 
             // nextButton
             // 
@@ -96,7 +111,7 @@
             nextButton.Size = new Size(60, 60);
             nextButton.TabIndex = 3;
             nextButton.UseVisualStyleBackColor = false;
-            nextButton.Click += nextButton_Click;
+            nextButton.Click += btnNext_Click;
             // 
             // previousButton
             // 
@@ -109,7 +124,7 @@
             previousButton.Size = new Size(60, 60);
             previousButton.TabIndex = 1;
             previousButton.UseVisualStyleBackColor = true;
-            previousButton.Click += buttonPrevious_Click;
+            previousButton.Click += btnPrevious_Click;
             // 
             // playButton
             // 
@@ -122,7 +137,7 @@
             playButton.Size = new Size(60, 60);
             playButton.TabIndex = 0;
             playButton.UseVisualStyleBackColor = true;
-            playButton.Click += buttonPlay_Click;
+            playButton.Click += btnPlayPause_Click;
             // 
             // labelNowPlaying
             // 
@@ -135,7 +150,7 @@
             // timer1
             // 
             timer1.Enabled = true;
-            timer1.Tick += timer1_Tick;
+            timer1.Tick += timer_Tick;
             // 
             // Form1
             // 
@@ -148,7 +163,7 @@
             Controls.Add(listBoxPlaylist);
             Name = "Form1";
             Text = "Form1";
-            Load += Form1_Load;
+            Load += MainForm_Load;
             controlPanel.ResumeLayout(false);
             ResumeLayout(false);
         }
@@ -165,5 +180,6 @@
         private Button addButton;
         private Label labelNowPlaying;
         private System.Windows.Forms.Timer timer1;
+        private Button deleteBtn;
     }
 }

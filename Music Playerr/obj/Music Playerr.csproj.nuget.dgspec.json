@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Lenovo\\Source\\Repos\\NLMDang22520190\\IT008\\Music Playerr\\Music Playerr.csproj": {}
+    "C:\\Users\\Lenovo\\source\\repos\\NLMDang22520190\\IT008\\Music Playerr\\Music Playerr.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Lenovo\\Source\\Repos\\NLMDang22520190\\IT008\\Music Playerr\\Music Playerr.csproj": {
+    "C:\\Users\\Lenovo\\source\\repos\\NLMDang22520190\\IT008\\Music Playerr\\Music Playerr.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Lenovo\\Source\\Repos\\NLMDang22520190\\IT008\\Music Playerr\\Music Playerr.csproj",
+        "projectUniqueName": "C:\\Users\\Lenovo\\source\\repos\\NLMDang22520190\\IT008\\Music Playerr\\Music Playerr.csproj",
         "projectName": "Music Playerr",
-        "projectPath": "C:\\Users\\Lenovo\\Source\\Repos\\NLMDang22520190\\IT008\\Music Playerr\\Music Playerr.csproj",
+        "projectPath": "C:\\Users\\Lenovo\\source\\repos\\NLMDang22520190\\IT008\\Music Playerr\\Music Playerr.csproj",
         "packagesPath": "C:\\Users\\Lenovo\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Lenovo\\Source\\Repos\\NLMDang22520190\\IT008\\Music Playerr\\obj\\",
+        "outputPath": "C:\\Users\\Lenovo\\source\\repos\\NLMDang22520190\\IT008\\Music Playerr\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Lenovo\\AppData\\Roaming\\NuGet\\NuGet.Config",
