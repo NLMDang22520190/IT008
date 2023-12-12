@@ -60,7 +60,7 @@ namespace Music_Playerr
             timer1.Start();
         }
 
-        
+
 
         private void btnPlayPause_Click(object sender, EventArgs e)
         {

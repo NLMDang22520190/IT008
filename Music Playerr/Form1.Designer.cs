@@ -161,8 +161,11 @@
             Controls.Add(controlPanel);
             Controls.Add(progressBarSong);
             Controls.Add(listBoxPlaylist);
+            Icon = (Icon)resources.GetObject("$this.Icon");
+            MaximumSize = new Size(393, 506);
+            MinimumSize = new Size(393, 506);
             Name = "Form1";
-            Text = "Form1";
+            Text = "Music Player";
             Load += MainForm_Load;
             controlPanel.ResumeLayout(false);
             ResumeLayout(false);
