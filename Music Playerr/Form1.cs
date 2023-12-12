@@ -176,7 +176,7 @@ namespace Music_Playerr
         {
             if (audioFileReader != null)
             {
-                //progressBarSong.Value = (int)audioFileReader.CurrentTime.TotalSeconds;
+                progressBarSong.Value = (int)audioFileReader.CurrentTime.TotalSeconds;
 
                 if (audioFileReader.CurrentTime == audioFileReader.TotalTime)
                 {
