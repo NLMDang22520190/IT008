@@ -11,45 +11,11 @@ namespace Music_Playerr
 {
     public partial class Form1 : Form
     {
-        //#region Properties
-        //// Danh sách bài hát
-        //private List<Song> playlist = new List<Song>();
-
-        //// Thư mục lưu trữ âm nhạc
-        //private string storedMusicFolder = "./Music/";
-
-        //// Vị trí hiện tại của bài hát trong danh sách
-        //private int currentSongIndex = 0;
-
-        //// Vị trí hiện tại đang được phát
-        //private int currentSongPlayingIndex = -1;
-
-        //// Đối tượng phát âm thanh
-        //private SoundPlayer player = new SoundPlayer();
-
-        //// Đối tượng phát âm thanh sử dụng thư viện NAudio
-        //private WaveOutEvent outputDevice;
-
-        //// Đối tượng đọc file âm thanh
-        //private AudioFileReader audioFile;
-
-        //// Biến kiểm tra xem âm nhạc đang được tạm dừng hay không
-        //private bool isPaused = true;
-
-        //// Biến kiểm tra xem âm nhạc đang được phát hay không
-        //private bool isPlaying = false;
-
-        //// Vị trí tạm dừng khi pause
-        //private long pausedPosition = 0;
-
-        //#endregion
 
         private List<Song> playlist = new List<Song>();
         private IWavePlayer waveOutDevice;
         private AudioFileReader audioFileReader;
         private int currentSongIndex = -1;
-        private bool changingTrack = false;
-        private bool isPlaying = false;
 
         // Hàm khởi tạo của Form
         public Form1()
@@ -98,7 +64,6 @@ namespace Music_Playerr
             currentSongIndex = (currentSongIndex + 1) % playlist.Count;
             Play(playlist[currentSongIndex].FilePath);
 
-            changingTrack = true;
         }
         private void btnPrevious_Click(object sender, EventArgs e)
         {
@@ -110,25 +75,30 @@ namespace Music_Playerr
             currentSongIndex = (currentSongIndex - 1 + playlist.Count) % playlist.Count;
             Play(playlist[currentSongIndex].FilePath);
 
-            changingTrack = true;
         }
 
         private void btnOpen_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "MP3 Files|*.mp3";
+            openFileDialog.Filter = "Audio Files|*.mp3;*.wav;*.flac;*.ogg;*.aac";
 
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 string filePath = openFileDialog.FileName;
                 string destinationPath = Path.Combine(Application.StartupPath, "Music", Path.GetFileName(filePath));
+
+                // Thực hiện copy file
                 File.Copy(filePath, destinationPath, true);
 
+                // Tạo đối tượng Song từ đường dẫn mới
                 Song newSong = new Song(destinationPath, Path.GetFileNameWithoutExtension(filePath));
+
+                // Thêm vào danh sách và ListBox
                 playlist.Add(newSong);
                 listBoxPlaylist.Items.Add(newSong.Title);
             }
         }
+
 
         private void Play(string filePath)
         {
@@ -146,7 +116,6 @@ namespace Music_Playerr
             // Cập nhật Label
             labelNowPlaying.Text = "Current song playing: " + Path.GetFileNameWithoutExtension(filePath);
 
-            isPlaying = true;
 
         }
 
@@ -217,7 +186,6 @@ namespace Music_Playerr
                 Stop();
                 currentSongIndex = listBoxPlaylist.SelectedIndex;
                 Play(playlist[currentSongIndex].FilePath);
-                changingTrack = true;
             }
         }
 
