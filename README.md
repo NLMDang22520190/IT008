@@ -34,5 +34,6 @@
 <li>Trước tiên, đảm bảo rằng bạn đã cài đặt .NET SDK trên máy tính của mình. Bạn có thể tải nó từ trang chính thức của .NET.</li>
 <li>Thêm SDK vào bên trong IDE nếu cần, sử dụng IDE clone repository về.</li>
 <li>Mở IDE và chạy ứng dụng và trải nghiệm.</li>
+<li>Trước khi muốn xóa một bài hát, bạn hãy chọn bài hát trong danh sách bài hát rồi ấn nút xóa. Lúc đó chương trình sẽ hiện lên hộp thoại (bạn có muốn xóa khỏi danh sách nhạc không, nếu chọn có thì chương trình sẽ xóa bản nhạc khỏi danh sách hiện tại) Sau đó chương trình sẽ hiển thị tiếp một hộp thoại (bạn có muốn xóa bài nhạc khỏi folder music, nếu chọn có thì bài nhạc sẽ bị xóa khỏi folder music, nếu chọn không thì bài nhạc sẽ giữ ở folder music chỉ xóa khỏi list nhạc trong chương trình.</li>
 
 
