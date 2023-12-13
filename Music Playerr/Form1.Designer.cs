@@ -165,6 +165,7 @@
             MaximumSize = new Size(393, 506);
             MinimumSize = new Size(393, 506);
             Name = "Form1";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Music Player";
             Load += MainForm_Load;
             controlPanel.ResumeLayout(false);

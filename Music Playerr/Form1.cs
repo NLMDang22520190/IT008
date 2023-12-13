@@ -24,6 +24,7 @@ namespace Music_Playerr
             //set_background_for_play_button();
             timer1.Interval = 1000; // Cập nhật mỗi 10ms
             timer1.Start();
+
         }
 
 
