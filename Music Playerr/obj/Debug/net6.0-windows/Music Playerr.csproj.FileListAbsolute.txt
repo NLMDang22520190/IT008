@@ -31,4 +31,4 @@ C:\Users\Lenovo\Source\Repos\NLMDang22520190\IT008\Music Playerr\bin\Debug\net6.
 C:\Users\Lenovo\Source\Repos\NLMDang22520190\IT008\Music Playerr\bin\Debug\net6.0-windows\Image\Play_pause.png
 C:\Users\Lenovo\Source\Repos\NLMDang22520190\IT008\Music Playerr\bin\Debug\net6.0-windows\Image\previous-svgrepo-com.png
 C:\Users\Lenovo\Source\Repos\NLMDang22520190\IT008\Music Playerr\bin\Debug\net6.0-windows\Image\crumb-cat.gif
-C:\Users\Lenovo\source\repos\NLMDang22520190\IT008\Music Playerr\bin\Debug\net6.0-windows\Image\minus.png
+C:\Users\Lenovo\source\repos\NLMDang22520190\IT008\Music Playerr\bin\Debug\net6.0-windows\Image\substract-svgrepo-com.png

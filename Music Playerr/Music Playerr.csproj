@@ -12,19 +12,16 @@
   <ItemGroup>
     <None Remove="Image\add-svgrepo-com.png" />
     <None Remove="Image\crumb-cat.gif" />
-    <None Remove="Image\minus.png" />
     <None Remove="Image\next-svgrepo-com.png" />
     <None Remove="Image\pause.png" />
     <None Remove="Image\play-button-svgrepo-com.png" />
     <None Remove="Image\Play_pause.png" />
     <None Remove="Image\previous-svgrepo-com.png" />
+    <None Remove="Image\substract-svgrepo-com.png" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Include="Image\add-svgrepo-com.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Image\minus.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Image\next-svgrepo-com.png">
@@ -46,6 +43,9 @@
 
   <ItemGroup>
     <Content Include="Image\crumb-cat.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Image\substract-svgrepo-com.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
